@@ -12,7 +12,8 @@ site_name = "Handmade GPUer"
 
 nav = [
   { "Getting Started" = "index.md" },
-  {"Clearing the Screen" = "clearing_the_screen.md"}
+  {"Clearing the Window" = "clearing_the_window.md"},
+  {"The Triangle" = "the_triangle.md"}
 ]
 
 # extra_css = ["stylesheets/extra.css"]

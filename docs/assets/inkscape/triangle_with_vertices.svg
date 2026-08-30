@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="512"
+   height="512"
+   viewBox="0 0 135.46666 135.46666"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.4 (dcaf3e7d9e, 2026-05-05)"
+   sodipodi:docname="triangle_with_vertices.svg"
+   inkscape:export-filename="../triangle_with_vertices.png"
+   inkscape:export-xdpi="192"
+   inkscape:export-ydpi="192"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="mm"
+     showgrid="true"
+     inkscape:zoom="0.65271736"
+     inkscape:cx="196.10326"
+     inkscape:cy="245.12907"
+     inkscape:window-width="1692"
+     inkscape:window-height="1059"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       id="grid1"
+       units="px"
+       originx="0"
+       originy="0"
+       spacingx="4.2333331"
+       spacingy="4.2333331"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14901961"
+       empspacing="1"
+       enabled="true"
+       visible="true" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#1a1a1a;stroke-width:3.88477"
+       id="rect1"
+       width="135.46666"
+       height="135.46666"
+       x="0"
+       y="-3.5527137e-15"
+       rx="1.9318942"
+       ry="7.170285e-08" />
+    <path
+       style="fill:#800000;stroke:none;stroke-width:0.264583"
+       d="M 67.733332,8.4666666 8.4666666,127 H 127 Z"
+       id="path1" />
+    <circle
+       style="fill:#f9f9f9;stroke:none;stroke-width:0.264583"
+       id="path2"
+       cx="67.73333"
+       cy="8.4666662"
+       r="4.2333331" />
+    <circle
+       style="fill:#f9f9f9;stroke:none;stroke-width:0.264583"
+       id="path2-3"
+       cx="8.4666662"
+       cy="127"
+       r="4.2333331" />
+    <circle
+       style="fill:#f9f9f9;stroke:none;stroke-width:0.264583"
+       id="path2-3-1"
+       cx="127"
+       cy="127"
+       r="4.2333331" />
+    <text
+       xml:space="preserve"
+       style="font-size:11.2889px;writing-mode:lr-tb;direction:ltr;fill:#f9f9f9;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+       x="76.124207"
+       y="12.327464"
+       id="text2"><tspan
+         sodipodi:role="line"
+         id="tspan2"
+         style="fill:#f9f9f9;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="76.124207"
+         y="12.327464">Vertex</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:11.2889px;writing-mode:lr-tb;direction:ltr;fill:#f9f9f9;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+       x="11.604997"
+       y="122.36026"
+       id="text2-0"><tspan
+         sodipodi:role="line"
+         id="tspan2-2"
+         style="fill:#f9f9f9;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="11.604997"
+         y="122.36026">Vertex</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:11.2889px;writing-mode:lr-tb;direction:ltr;fill:#f9f9f9;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+       x="89.204773"
+       y="122.65379"
+       id="text2-6"><tspan
+         sodipodi:role="line"
+         id="tspan2-1"
+         style="fill:#f9f9f9;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+         x="89.204773"
+         y="122.65379">Vertex</tspan></text>
+  </g>
+</svg>

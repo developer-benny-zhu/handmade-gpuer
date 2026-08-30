@@ -10,3 +10,7 @@ wheels/
 .venv
 
 site/
+*.exe
+
+*.vert.spv
+*.frag.spv

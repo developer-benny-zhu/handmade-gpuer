@@ -1,12 +1,13 @@
-# Getting Started
+# Handmade GPUer
 
-If you are reading this, chances are you want to learn how to program the GPU. You've went through the internet for resources: Youtube videos, books, articles, etc. However, you've hit a road block: they all have at least one of these problems:
+If you are reading this, chances are you want to learn how to program the GPU. You've went through the internet for resources: Youtube videos, books and articles. However, you've hit a road block: they all have at least one of these problems:
 
-1. They don't go in depth and don't explain a lot.
-2. They are outdated.
-3. They are all theory.
+1. The video/book/article is making you constantly think, “The heck? I have absolutely no idea what this video, book, or article is even attempting to communicate. The verbiage being incessantly promulgated is utterly incomprehensible, inundated with an exorbitant quantity of convoluted terminology and unnecessarily abstruse jargon.”
+2. They don't go in depth.
+3. They are outdated.
+4. They are all theory.
 
-This book attempts to avoid these problems while teaching you what you've come here for: how to program the GPU.
+This book attempts to avoid these problems while teaching you what you've come here for: how to program the GPU. Moreover, I strive for this book to be proof that learning how to program the GPU doesn't have to hard, it should be easy.
 
 ## What you can Expect
 
@@ -14,4 +15,10 @@ Let me be clear on thing: I am not one of those people who take pleasure in expl
 
 ## Prerequisites
 
-To get started you first have to have two things: the Odin compiler and intermediate knowledge in the Odin programming language. That is it. Of course, you can use any language of your choice whether it be C++ or Zig because we are using SDL3, which is availible on many languages via bindings.
+To get started you first have to have three things:
+
+1. The Odin compiler
+2. Intermediate knowledge in the Odin programming language
+3. SDL's shader cross.
+
+Of course, you can use any language of your choice whether it be C++ or Zig because we are using SDL3, which is availible on many languages via bindings.

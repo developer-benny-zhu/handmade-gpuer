@@ -1,5 +1,22 @@
-# Clearing the Screen
+# Clearing the Window
 
+## What is window?
+
+Before we can draw anything, we need somewhere to draw it.
+
+A window is the rectangular area created by the operating system that
+our application uses to display its contents.
+
+For example, when we create a 1280×720 window, the operating system gives
+our application a 1280×720 area to draw into.
+
+The window is not the same thing as the screen.
+
+The screen is the physical display itself. A window is a region of that
+display belonging to an application.
+
+
+## The main loop
 First things first, let us open a window, if you've worked with Raylib or SDL before, you may have constructed the main loop yourself such as:
 
 ```go
@@ -125,6 +142,9 @@ flowchart TD
 
 In short, while on desktop platforms you handle the main loop, on web and mobile, the browser/OS handles the main loop. You might be thinking at this point: "Damn bruh... so I have to write my code differently for each platform."
 
+
+## SDL Callbacks
+
 Worry not! As this is where "SDL callbacks" come in, by passing your code into functions like app_init, app_iterate, app_event, app_quit, SDL can use your functions and handle those platform differences for you (On desktop it constructs a main loop and calls those functions in the main loop. On mobile it calls those functions when the OS gives your program the corresponding events), allowing you to easily port your code to variety of platforms.
 
 Lets see how to do these "SDL callbacks."
@@ -167,6 +187,8 @@ app_quit :: proc "c" (appstate: rawptr, result: sdl.AppResult) {
 	context = global_context
 }
 ```
+
+## Creating the SDL Window
 
 As you might realize this won't open a window by itself because there wasn't any code to explicitly create the window at all. So let us do that.
 
@@ -230,9 +252,17 @@ app_quit :: proc "c" (appstate: rawptr, result: sdl.AppResult) {
 }
 ```
 
-Now if you ran the code above, you might be thinking I was a liar, the code above doesn't actually work at all and you are seeing no window at all. Well, that is actually to be expected because there is nothing to "present," we haven't drawn anything yet. So, lets clear the background. However before then lets learn a few concepts.
+Now if you run the code above you will see a majestic empty window pop up on your screen.........
 
-## GPU Device
+HAHAHA I lied! That code does not open a window... well I only partially lied, it does open a window, but you don't see it. That is because we haven't drawn anything to the window so the window has nothing to "present" to us. Lets try and clear the window... which is well... the whole point of this chapter.
+
+## How does the GPU draw?
+
+Before we can tell the GPU to clear the window, we need to understand
+some of the machinery involved in getting commands from our program to the
+GPU.
+
+### GPU Device
 
 The GPU device is the software representation of the actual GPU(s) on your computer, SDL provides this interface so you can send the GPU commands to do stuff like clearing the screen or drawing textures.
 
@@ -251,7 +281,7 @@ flowchart TD
 ```
 </div>
 
-## GPU Driver
+### GPU Driver
 
 Seeing the diagram above, you might be asking: what the heck is a GPU driver? Basically, OpenGL, Vulkan, DirectX11 are all GPU APIs they are just specifications defining function names, what those functions do and what those functions return. Meanwhile, GPU drivers are the implementation of those APIs usually done by the GPU manufacturers themselves, such as AMD.
 
@@ -270,7 +300,7 @@ flowchart TD
 
 </div>
 
-## Swapchain
+### Swapchain
 
 The idea of a swapchain is that you have a image that you render to and an image that you display then after a frame is finished those two images swap roles. Below is a visual demonstration of what a swapchain is.
 
@@ -283,7 +313,7 @@ The reason we do this is because if we don't the user will see screen tearing be
 
 ![Screentearing demonstration](https://s2.qwant.com/thumbr/474x304/f/c/96d303e53317782ed6624625dc0ea325ce83896cc5bac450d455bb21284bb8/OIP.nilRZEoHJM1qI1y5GStoBwHaEw.jpg?u=https%3A%2F%2Ftse.mm.bing.net%2Fth%2Fid%2FOIP.nilRZEoHJM1qI1y5GStoBwHaEw%3Fpid%3DApi&q=0&b=1&p=0&a=0)
 
-## Command Buffer
+### Command Buffer
 
 A command buffer is a list of instructions that gets sent to the GPU.
 
@@ -314,27 +344,31 @@ The reason we do this is because we don't want the CPU to be constantly waiting 
     line-height: 1.8;
 ">
 <div style="text-align: center; font-size: 1.2em; font-weight: bold; margin-bottom: 1em;">
-    CPU ↔ GPU
+The Story of the Command Buffer
 </div>
 <div><b>CPU:</b> Do this bro.</div>
 <div><b>GPU:</b> I gotchu bro.</div>
 <div style="opacity: 0.55; padding: 0.5em 0;">
-        CPU is waiting...
+CPU is waiting...
 </div>
 <div><b>GPU:</b> Bro, im done.</div>
 <div><b>CPU:</b> Bro, do this now.</div>
 <div><b>GPU:</b> Ok bro.</div>
+<div style="opacity: 0.55; padding: 0.5em 0;">
+CPU is waiting...
+</div>
 <div><b>CPU:</b> You done bro?</div>
 <div style="opacity: 0.55; padding: 0.5em 0;">
-        GPU is still working...
+GPU is still working...
 </div>
 <div><b>CPU:</b> Bro, why do you gotta be so slow?</div>
 <div><b>GPU:</b> BRO, WHY CAN'T YOU SEND ME THE INSTRUCTIONS ALL AT ONCE SO I DON'T HAVE TO KEEP GOING BACK TO YOU?</div>
-<div><b>CPU:</b> Bro... the reason is because my programmer is stupid and not using a command buffer</div>
+<div><b>CPU:</b> Bro... the reason is because my programmer is stupid! Hes programming me to send you the instructions one by one!</div>
+<div><b>Programmer:</b> Bro.... I heard that... you know what you right, ima invent something called the command buffer.</div>
 
 </div>
 
-## Color Target (Aliases: Color Attachment, Render Target, RTV)
+### Color Target (Aliases: Color Attachment, Render Target, RTV)
 
 A color target is the image that the GPU is going to write the colors of the rendered pixels to. Suppose you are trying to render this:
 
@@ -344,7 +378,7 @@ The GPU needs somewhere to put those pixels.
 
 In a typical app, the color target will be the swapchain image.
 
-## Render Pass
+### Render Pass
 
 A render pass is a section where you tell the GPU the color targets you are going to render to. You can think of it like a container.
 <div style="

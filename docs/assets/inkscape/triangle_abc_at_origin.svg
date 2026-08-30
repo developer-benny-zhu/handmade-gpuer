@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="1440"
+   height="880"
+   viewBox="0 0 380.99998 232.83331"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.4 (dcaf3e7d9e, 2026-05-05)"
+   sodipodi:docname="triangle_abc_at_origin.svg"
+   inkscape:export-filename="../../triangle_abc_at_origin.png"
+   inkscape:export-xdpi="192"
+   inkscape:export-ydpi="192"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="mm"
+     showgrid="true"
+     inkscape:zoom="0.32658613"
+     inkscape:cx="728.7511"
+     inkscape:cy="453.17295"
+     inkscape:window-width="1692"
+     inkscape:window-height="1059"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       id="grid1"
+       units="px"
+       originx="0"
+       originy="0"
+       spacingx="4.2333331"
+       spacingy="4.2333331"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14901961"
+       empspacing="1"
+       enabled="true"
+       visible="true" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#1a1a1a;stroke-width:4.49013"
+       id="rect2"
+       width="381"
+       height="232.83333"
+       x="0"
+       y="-1.4210855e-14"
+       rx="2.0647118"
+       ry="1.3679267" />
+    <rect
+       style="fill:#333333;stroke:none;stroke-width:0;stroke-dasharray:none"
+       id="rect1"
+       width="338.66666"
+       height="190.5"
+       x="42.333332"
+       y="42.333332"
+       rx="1.1470621"
+       ry="0.5471707" />
+    <path
+       style="fill:#800000;stroke:none;stroke-width:2.11667"
+       d="M 42.333332,8.4666661 8.4666661,76.199998 H 76.199998 Z"
+       id="path1" />
+    <text
+       xml:space="preserve"
+       style="font-size:45.1556px;writing-mode:lr-tb;direction:ltr;fill:#f9f9f9;stroke:none;stroke-width:0;stroke-dasharray:none"
+       x="126.02908"
+       y="154.51668"
+       id="text1"><tspan
+         sodipodi:role="line"
+         id="tspan1"
+         style="font-size:45.1556px;fill:#f9f9f9;stroke-width:0"
+         x="126.02908"
+         y="154.51668">Window</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:11.2889px;writing-mode:lr-tb;direction:ltr;fill:#f9f9f9;stroke:none;stroke-width:0;stroke-dasharray:none"
+       x="38.73217"
+       y="23.693705"
+       id="text2"><tspan
+         sodipodi:role="line"
+         id="tspan2"
+         style="font-size:11.2889px;stroke-width:0"
+         x="38.73217"
+         y="23.693705">A</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:11.2889px;writing-mode:lr-tb;direction:ltr;fill:#f9f9f9;stroke:none;stroke-width:0;stroke-dasharray:none"
+       x="11.604997"
+       y="71.966667"
+       id="text3"><tspan
+         sodipodi:role="line"
+         id="tspan3"
+         style="stroke-width:0"
+         x="11.604997"
+         y="71.966667">B</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:11.2889px;writing-mode:lr-tb;direction:ltr;fill:#f9f9f9;stroke:none;stroke-width:0;stroke-dasharray:none"
+       x="65.182014"
+       y="71.853798"
+       id="text4"><tspan
+         sodipodi:role="line"
+         id="tspan4"
+         style="stroke-width:0"
+         x="65.182014"
+         y="71.853798">C</tspan></text>
+    <circle
+       style="fill:#f9f9f9;stroke:none;stroke-width:0;stroke-dasharray:none"
+       id="path4"
+       cx="42.333332"
+       cy="8.4666662"
+       r="4.2333331" />
+    <circle
+       style="fill:#f9f9f9;stroke:none;stroke-width:0;stroke-dasharray:none"
+       id="path4-3"
+       cx="76.199997"
+       cy="76.199997"
+       r="4.2333331" />
+    <circle
+       style="fill:#f9f9f9;stroke:none;stroke-width:0;stroke-dasharray:none"
+       id="path4-3-1"
+       cx="8.4666662"
+       cy="76.199997"
+       r="4.2333331" />
+  </g>
+</svg>
