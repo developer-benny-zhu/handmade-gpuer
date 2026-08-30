@@ -1,6 +1,6 @@
 [project]
 site_url = "https://www.handmadegpuer.com/"
-site_name = "Handmade Gpuer"
+site_name = "Handmade GPUer"
 # site_description = "Your project description"
 # site_author = "Your name"
 
@@ -11,7 +11,7 @@ site_name = "Handmade Gpuer"
 # edit_uri = "edit/main/docs/"
 
 nav = [
-  { "Getting Started" = "getting_started.md" },
+  { "Getting Started" = "index.md" },
   {"Clearing the Screen" = "clearing_the_screen.md"}
 ]
 
