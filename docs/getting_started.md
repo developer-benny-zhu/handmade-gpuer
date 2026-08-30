@@ -10,7 +10,7 @@ This book attempts to avoid these problems while teaching you what you've come h
 
 ## What you can Expect
 
-Let me be clear on thing: I am not one of those people who take pleasure in explaining things with complex words and jargon. I am also not one to half-ass explanations. So, if you have trouble understanding an explanation or believe an explanation can be simplified please open a issue/pull request on the Github. This book is also a project-based one, you'll be writing a full on renderer with triangles, quads, models, skyboxes, lighting, raytracing, etc all with the new SDL3 GPU API.
+Let me be clear on thing: I am not one of those people who take pleasure in explaining things with complex words and jargon. So, I will be explaining everything as simply as possible and using as much diagrams and images during these explanations, after all, a good diagram/image is worth a thousand words. If you have trouble understanding an explanation or believe an explanation can be simplified please open a issue/pull request on the Github. This book is also a project-based one, you'll be writing a full on renderer with triangles, quads, models, skyboxes, lighting, raytracing, etc all with the new SDL3 GPU API.
 
 ## Prerequisites
 

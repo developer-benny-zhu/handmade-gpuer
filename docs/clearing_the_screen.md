@@ -46,7 +46,7 @@ flowchart TD
 
 On the web, the story is different. Javascript and the DOM (The system that draws the actual webpage) are single-threaded. Everything happening on a webpage must happen on that single thread like processing inputs and drawing graphics. However, if your program runs a main loop itself, the browser is "locked out" and can't check if the user clicked a webpage element or draw anything, so the entire tab you are on instantly freezes.
 
-So below I have a diagram showing what you what happens if you don't block the web page with your own loop.
+So below I have a diagram showing you what happens if you don't block the web page with your own loop.
 <div align="center">
 
 ```mermaid
@@ -123,9 +123,9 @@ flowchart TD
 
 </div>
 
-In short, while on desktop platforms you handle the main loop, on web and mobile, the browser/OS handles the main loop.
+In short, while on desktop platforms you handle the main loop, on web and mobile, the browser/OS handles the main loop. You might be thinking at this point: "Damn bruh... so I have to write my code differently for each platform."
 
-This is where SDL callbacks come in, by passing your code into functions like app_init, app_iterate, app_event, app_quit, SDL can use your functions and handle those platform differences for you (On desktop it constructs a main loop and calls those functions in the main loop. On mobile it calls those functions when the OS gives your program the corresponding signals), allowing you to easily port your code to variety of platforms.
+Worry not! As this is where "SDL callbacks" come in, by passing your code into functions like app_init, app_iterate, app_event, app_quit, SDL can use your functions and handle those platform differences for you (On desktop it constructs a main loop and calls those functions in the main loop. On mobile it calls those functions when the OS gives your program the corresponding events), allowing you to easily port your code to variety of platforms.
 
 Lets see how to do these "SDL callbacks."
 
@@ -300,6 +300,8 @@ flowchart TD
         List -->|"Submit all at once"| GPU
 ```
 
+</div>
+
 The reason we do this is because we don't want the CPU to be constantly waiting around for the GPU:
 
 <div style="
@@ -332,9 +334,70 @@ The reason we do this is because we don't want the CPU to be constantly waiting 
 
 </div>
 
+## Color Target (Aliases: Color Attachment, Render Target, RTV)
+
+A color target is the image that the GPU is going to write the colors of the rendered pixels to. Suppose you are trying to render this:
+
+![Picture of a rainbow triangle](https://s1.qwant.com/thumbr/323x305/1/7/7fe62df2751ce705d357ea2c29265de20a9af224ac79058d916b5ac42830d0/OIP.EikvsmQb514mQt6-DxZ3gwAAAA.jpg?u=https%3A%2F%2Ftse.mm.bing.net%2Fth%2Fid%2FOIP.EikvsmQb514mQt6-DxZ3gwAAAA%3Fpid%3DApi&q=0&b=1&p=0&a=0)
+
+The GPU needs somewhere to put those pixels.
+
+In a typical app, the color target will be the swapchain image.
+
+## Render Pass
+
+A render pass is a section where you tell the GPU the color targets you are going to render to. You can think of it like a container.
+<div style="
+    max-width: 600px;
+    margin: 2em auto;
+    padding: 1.5em;
+    border: 2px solid var(--md-default-fg-color--light);
+    border-radius: 8px;
+    background: var(--md-code-bg-color);
+    font-family: monospace;
+">
+
+<div style="
+    padding-bottom: 1em;
+    text-align: center;
+    font-size: 1.3em;
+    font-weight: bold;
+">
+    Render Pass
 </div>
+
+<div style="
+    padding: 1em;
+    border: 2px dashed var(--md-default-fg-color--light);
+    border-radius: 6px;
+">
+
+<div><b>Color Target:</b> Screen</div>
+
+<div style="margin-top: 1em;">
+    <b>Load:</b> CLEAR
+</div>
+
+<div style="margin-top: 1em;">
+    <b>Command Buffer:</b><br>
+    &nbsp;&nbsp;Add draw triangle command<br>
+    &nbsp;&nbsp;Add draw sprites command<br>
+    &nbsp;&nbsp;Add draw UI command
+</div>
+
+<div style="margin-top: 1em;">
+    <b>Store:</b> YES
+</div>
+
+</div>
+</div>
+
 Now lets see how to clear the background.
 
 ```go title="main.odin"
 --8<-- "the_window/src/main.odin"
 ```
+
+Congratulations! You have now rendered a dark blue background!
+
+![Darkblue Background](assets/clearing_the_screen.png)

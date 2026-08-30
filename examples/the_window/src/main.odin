@@ -55,6 +55,7 @@ app_iterate :: proc "c" (appstate: rawptr) -> sdl.AppResult {
 		nil,
 		nil,
 	) {
+		// A swapchain texture might be nil if the window is minimized
 		if swapchain_texture != nil {
 			color_target := sdl.GPUColorTargetInfo {
 				texture     = swapchain_texture,

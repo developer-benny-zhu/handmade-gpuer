@@ -350,6 +350,28 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#color-target-aliases-color-attachment-render-target-rtv" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Color Target (Aliases: Color Attachment, Render Target, RTV)
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#render-pass" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Render Pass
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -442,6 +464,28 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#color-target-aliases-color-attachment-render-target-rtv" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Color Target (Aliases: Color Attachment, Render Target, RTV)
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#render-pass" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Render Pass
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -502,7 +546,7 @@
 </div>
 
 <p>On the web, the story is different. Javascript and the DOM (The system that draws the actual webpage) are single-threaded. Everything happening on a webpage must happen on that single thread like processing inputs and drawing graphics. However, if your program runs a main loop itself, the browser is "locked out" and can't check if the user clicked a webpage element or draw anything, so the entire tab you are on instantly freezes.</p>
-<p>So below I have a diagram showing what you what happens if you don't block the web page with your own loop.</p>
+<p>So below I have a diagram showing you what happens if you don't block the web page with your own loop.</p>
 <div align="center">
 
 <pre class="mermaid"><code>flowchart TD
@@ -566,8 +610,8 @@
 
 </div>
 
-<p>In short, while on desktop platforms you handle the main loop, on web and mobile, the browser/OS handles the main loop.</p>
-<p>This is where SDL callbacks come in, by passing your code into functions like app_init, app_iterate, app_event, app_quit, SDL can use your functions and handle those platform differences for you (On desktop it constructs a main loop and calls those functions in the main loop. On mobile it calls those functions when the OS gives your program the corresponding signals), allowing you to easily port your code to variety of platforms.</p>
+<p>In short, while on desktop platforms you handle the main loop, on web and mobile, the browser/OS handles the main loop. You might be thinking at this point: "Damn bruh... so I have to write my code differently for each platform."</p>
+<p>Worry not! As this is where "SDL callbacks" come in, by passing your code into functions like app_init, app_iterate, app_event, app_quit, SDL can use your functions and handle those platform differences for you (On desktop it constructs a main loop and calls those functions in the main loop. On mobile it calls those functions when the OS gives your program the corresponding events), allowing you to easily port your code to variety of platforms.</p>
 <p>Lets see how to do these "SDL callbacks."</p>
 <div class="language-go highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">package</span><span class="w"> </span><span class="nx">src</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
@@ -718,8 +762,9 @@
         CB --&gt; List
         List --&gt;|"Submit all at once"| GPU</code></pre>
 
-The reason we do this is because we don't want the CPU to be constantly waiting around for the GPU:
+</div>
 
+<p>The reason we do this is because we don't want the CPU to be constantly waiting around for the GPU:</p>
 <div style="
     max-width: 650px;
     margin: 2em auto;
@@ -750,7 +795,58 @@ The reason we do this is because we don't want the CPU to be constantly waiting 
 
 </div>
 
+<h2 id="color-target-aliases-color-attachment-render-target-rtv">Color Target (Aliases: Color Attachment, Render Target, RTV)<a class="headerlink" href="#color-target-aliases-color-attachment-render-target-rtv" title="Permanent link">&para;</a></h2>
+<p>A color target is the image that the GPU is going to write the colors of the rendered pixels to. Suppose you are trying to render this:</p>
+<p><img alt="Picture of a rainbow triangle" src="https://s1.qwant.com/thumbr/323x305/1/7/7fe62df2751ce705d357ea2c29265de20a9af224ac79058d916b5ac42830d0/OIP.EikvsmQb514mQt6-DxZ3gwAAAA.jpg?u=https%3A%2F%2Ftse.mm.bing.net%2Fth%2Fid%2FOIP.EikvsmQb514mQt6-DxZ3gwAAAA%3Fpid%3DApi&amp;q=0&amp;b=1&amp;p=0&amp;a=0" /></p>
+<p>The GPU needs somewhere to put those pixels.</p>
+<p>In a typical app, the color target will be the swapchain image.</p>
+<h2 id="render-pass">Render Pass<a class="headerlink" href="#render-pass" title="Permanent link">&para;</a></h2>
+<p>A render pass is a section where you tell the GPU the color targets you are going to render to. You can think of it like a container.</p>
+<div style="
+    max-width: 600px;
+    margin: 2em auto;
+    padding: 1.5em;
+    border: 2px solid var(--md-default-fg-color--light);
+    border-radius: 8px;
+    background: var(--md-code-bg-color);
+    font-family: monospace;
+">
+
+<div style="
+    padding-bottom: 1em;
+    text-align: center;
+    font-size: 1.3em;
+    font-weight: bold;
+">
+    Render Pass
 </div>
+
+<div style="
+    padding: 1em;
+    border: 2px dashed var(--md-default-fg-color--light);
+    border-radius: 6px;
+">
+
+<div><b>Color Target:</b> Screen</div>
+
+<div style="margin-top: 1em;">
+    <b>Load:</b> CLEAR
+</div>
+
+<div style="margin-top: 1em;">
+    <b>Command Buffer:</b><br>
+    &nbsp;&nbsp;Add draw triangle command<br>
+    &nbsp;&nbsp;Add draw sprites command<br>
+    &nbsp;&nbsp;Add draw UI command
+</div>
+
+<div style="margin-top: 1em;">
+    <b>Store:</b> YES
+</div>
+
+</div>
+</div>
+
 <p>Now lets see how to clear the background.</p>
 <div class="language-go highlight"><span class="filename">main.odin</span><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">package</span><span class="w"> </span><span class="nx">src</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
@@ -809,41 +905,44 @@ The reason we do this is because we don't want the CPU to be constantly waiting 
 </span><span id="__span-3-55"><a id="__codelineno-3-55" name="__codelineno-3-55" href="#__codelineno-3-55"></a><span class="w">        </span><span class="kc">nil</span><span class="p">,</span>
 </span><span id="__span-3-56"><a id="__codelineno-3-56" name="__codelineno-3-56" href="#__codelineno-3-56"></a><span class="w">        </span><span class="kc">nil</span><span class="p">,</span>
 </span><span id="__span-3-57"><a id="__codelineno-3-57" name="__codelineno-3-57" href="#__codelineno-3-57"></a><span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-3-58"><a id="__codelineno-3-58" name="__codelineno-3-58" href="#__codelineno-3-58"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">swapchain_texture</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-3-59"><a id="__codelineno-3-59" name="__codelineno-3-59" href="#__codelineno-3-59"></a><span class="w">            </span><span class="nx">color_target</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sdl</span><span class="p">.</span><span class="nx">GPUColorTargetInfo</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-3-60"><a id="__codelineno-3-60" name="__codelineno-3-60" href="#__codelineno-3-60"></a><span class="w">                </span><span class="nx">texture</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="nx">swapchain_texture</span><span class="p">,</span>
-</span><span id="__span-3-61"><a id="__codelineno-3-61" name="__codelineno-3-61" href="#__codelineno-3-61"></a><span class="w">                </span><span class="nx">clear_color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mf">0.1</span><span class="p">,</span><span class="w"> </span><span class="mf">0.2</span><span class="p">,</span><span class="w"> </span><span class="mf">0.4</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">},</span>
-</span><span id="__span-3-62"><a id="__codelineno-3-62" name="__codelineno-3-62" href="#__codelineno-3-62"></a><span class="w">                </span><span class="nx">load_op</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="nx">CLEAR</span><span class="p">,</span>
-</span><span id="__span-3-63"><a id="__codelineno-3-63" name="__codelineno-3-63" href="#__codelineno-3-63"></a><span class="w">                </span><span class="nx">store_op</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="nx">STORE</span><span class="p">,</span>
-</span><span id="__span-3-64"><a id="__codelineno-3-64" name="__codelineno-3-64" href="#__codelineno-3-64"></a><span class="w">            </span><span class="p">}</span>
-</span><span id="__span-3-65"><a id="__codelineno-3-65" name="__codelineno-3-65" href="#__codelineno-3-65"></a><span class="w">            </span><span class="nx">render_pass</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sdl</span><span class="p">.</span><span class="nx">BeginGPURenderPass</span><span class="p">(</span><span class="nx">command_buffer</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">color_target</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span>
-</span><span id="__span-3-66"><a id="__codelineno-3-66" name="__codelineno-3-66" href="#__codelineno-3-66"></a><span class="w">            </span><span class="nx">sdl</span><span class="p">.</span><span class="nx">EndGPURenderPass</span><span class="p">(</span><span class="nx">render_pass</span><span class="p">)</span>
-</span><span id="__span-3-67"><a id="__codelineno-3-67" name="__codelineno-3-67" href="#__codelineno-3-67"></a><span class="w">        </span><span class="p">}</span>
-</span><span id="__span-3-68"><a id="__codelineno-3-68" name="__codelineno-3-68" href="#__codelineno-3-68"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-3-69"><a id="__codelineno-3-69" name="__codelineno-3-69" href="#__codelineno-3-69"></a><span class="w">    </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sdl</span><span class="p">.</span><span class="nx">SubmitGPUCommandBuffer</span><span class="p">(</span><span class="nx">command_buffer</span><span class="p">)</span>
-</span><span id="__span-3-70"><a id="__codelineno-3-70" name="__codelineno-3-70" href="#__codelineno-3-70"></a><span class="w">    </span><span class="nx">assert</span><span class="p">(</span><span class="nx">ok</span><span class="p">)</span>
-</span><span id="__span-3-71"><a id="__codelineno-3-71" name="__codelineno-3-71" href="#__codelineno-3-71"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">.</span><span class="nx">CONTINUE</span>
-</span><span id="__span-3-72"><a id="__codelineno-3-72" name="__codelineno-3-72" href="#__codelineno-3-72"></a><span class="p">}</span>
-</span><span id="__span-3-73"><a id="__codelineno-3-73" name="__codelineno-3-73" href="#__codelineno-3-73"></a>
-</span><span id="__span-3-74"><a id="__codelineno-3-74" name="__codelineno-3-74" href="#__codelineno-3-74"></a><span class="err">@</span><span class="p">(</span><span class="nx">export</span><span class="p">)</span>
-</span><span id="__span-3-75"><a id="__codelineno-3-75" name="__codelineno-3-75" href="#__codelineno-3-75"></a><span class="nx">app_event</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="nx">proc</span><span class="w"> </span><span class="s">"c"</span><span class="w"> </span><span class="p">(</span><span class="nx">appstate</span><span class="p">:</span><span class="w"> </span><span class="nx">rawptr</span><span class="p">,</span><span class="w"> </span><span class="nx">event</span><span class="p">:</span><span class="w"> </span><span class="o">^</span><span class="nx">sdl</span><span class="p">.</span><span class="nx">Event</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nx">sdl</span><span class="p">.</span><span class="nx">AppResult</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-3-76"><a id="__codelineno-3-76" name="__codelineno-3-76" href="#__codelineno-3-76"></a><span class="w">    </span><span class="nx">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">global_context</span>
-</span><span id="__span-3-77"><a id="__codelineno-3-77" name="__codelineno-3-77" href="#__codelineno-3-77"></a><span class="w">    </span><span class="err">#</span><span class="nx">partial</span><span class="w"> </span><span class="k">switch</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="kd">type</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-3-78"><a id="__codelineno-3-78" name="__codelineno-3-78" href="#__codelineno-3-78"></a><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="nx">QUIT</span><span class="p">:</span>
-</span><span id="__span-3-79"><a id="__codelineno-3-79" name="__codelineno-3-79" href="#__codelineno-3-79"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">.</span><span class="nx">SUCCESS</span>
-</span><span id="__span-3-80"><a id="__codelineno-3-80" name="__codelineno-3-80" href="#__codelineno-3-80"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-3-81"><a id="__codelineno-3-81" name="__codelineno-3-81" href="#__codelineno-3-81"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">.</span><span class="nx">CONTINUE</span>
-</span><span id="__span-3-82"><a id="__codelineno-3-82" name="__codelineno-3-82" href="#__codelineno-3-82"></a><span class="p">}</span>
-</span><span id="__span-3-83"><a id="__codelineno-3-83" name="__codelineno-3-83" href="#__codelineno-3-83"></a>
-</span><span id="__span-3-84"><a id="__codelineno-3-84" name="__codelineno-3-84" href="#__codelineno-3-84"></a><span class="err">@</span><span class="p">(</span><span class="nx">export</span><span class="p">)</span>
-</span><span id="__span-3-85"><a id="__codelineno-3-85" name="__codelineno-3-85" href="#__codelineno-3-85"></a><span class="nx">app_quit</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="nx">proc</span><span class="w"> </span><span class="s">"c"</span><span class="w"> </span><span class="p">(</span><span class="nx">appstate</span><span class="p">:</span><span class="w"> </span><span class="nx">rawptr</span><span class="p">,</span><span class="w"> </span><span class="nx">result</span><span class="p">:</span><span class="w"> </span><span class="nx">sdl</span><span class="p">.</span><span class="nx">AppResult</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-3-86"><a id="__codelineno-3-86" name="__codelineno-3-86" href="#__codelineno-3-86"></a><span class="w">    </span><span class="nx">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">global_context</span>
-</span><span id="__span-3-87"><a id="__codelineno-3-87" name="__codelineno-3-87" href="#__codelineno-3-87"></a><span class="w">    </span><span class="nx">sdl</span><span class="p">.</span><span class="nx">ReleaseWindowFromGPUDevice</span><span class="p">(</span><span class="nx">gpu_device</span><span class="p">,</span><span class="w"> </span><span class="nx">window</span><span class="p">)</span>
-</span><span id="__span-3-88"><a id="__codelineno-3-88" name="__codelineno-3-88" href="#__codelineno-3-88"></a><span class="w">    </span><span class="nx">sdl</span><span class="p">.</span><span class="nx">DestroyGPUDevice</span><span class="p">(</span><span class="nx">gpu_device</span><span class="p">)</span>
-</span><span id="__span-3-89"><a id="__codelineno-3-89" name="__codelineno-3-89" href="#__codelineno-3-89"></a><span class="w">    </span><span class="nx">sdl</span><span class="p">.</span><span class="nx">DestroyWindow</span><span class="p">(</span><span class="nx">window</span><span class="p">)</span>
-</span><span id="__span-3-90"><a id="__codelineno-3-90" name="__codelineno-3-90" href="#__codelineno-3-90"></a><span class="w">    </span><span class="nx">sdl</span><span class="p">.</span><span class="nx">Quit</span><span class="p">()</span>
-</span><span id="__span-3-91"><a id="__codelineno-3-91" name="__codelineno-3-91" href="#__codelineno-3-91"></a><span class="p">}</span>
+</span><span id="__span-3-58"><a id="__codelineno-3-58" name="__codelineno-3-58" href="#__codelineno-3-58"></a><span class="w">        </span><span class="c1">// A swapchain texture might be nil if the window is minimized</span>
+</span><span id="__span-3-59"><a id="__codelineno-3-59" name="__codelineno-3-59" href="#__codelineno-3-59"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">swapchain_texture</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-60"><a id="__codelineno-3-60" name="__codelineno-3-60" href="#__codelineno-3-60"></a><span class="w">            </span><span class="nx">color_target</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sdl</span><span class="p">.</span><span class="nx">GPUColorTargetInfo</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-61"><a id="__codelineno-3-61" name="__codelineno-3-61" href="#__codelineno-3-61"></a><span class="w">                </span><span class="nx">texture</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="nx">swapchain_texture</span><span class="p">,</span>
+</span><span id="__span-3-62"><a id="__codelineno-3-62" name="__codelineno-3-62" href="#__codelineno-3-62"></a><span class="w">                </span><span class="nx">clear_color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mf">0.1</span><span class="p">,</span><span class="w"> </span><span class="mf">0.2</span><span class="p">,</span><span class="w"> </span><span class="mf">0.4</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">},</span>
+</span><span id="__span-3-63"><a id="__codelineno-3-63" name="__codelineno-3-63" href="#__codelineno-3-63"></a><span class="w">                </span><span class="nx">load_op</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="nx">CLEAR</span><span class="p">,</span>
+</span><span id="__span-3-64"><a id="__codelineno-3-64" name="__codelineno-3-64" href="#__codelineno-3-64"></a><span class="w">                </span><span class="nx">store_op</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="p">.</span><span class="nx">STORE</span><span class="p">,</span>
+</span><span id="__span-3-65"><a id="__codelineno-3-65" name="__codelineno-3-65" href="#__codelineno-3-65"></a><span class="w">            </span><span class="p">}</span>
+</span><span id="__span-3-66"><a id="__codelineno-3-66" name="__codelineno-3-66" href="#__codelineno-3-66"></a><span class="w">            </span><span class="nx">render_pass</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sdl</span><span class="p">.</span><span class="nx">BeginGPURenderPass</span><span class="p">(</span><span class="nx">command_buffer</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">color_target</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span>
+</span><span id="__span-3-67"><a id="__codelineno-3-67" name="__codelineno-3-67" href="#__codelineno-3-67"></a><span class="w">            </span><span class="nx">sdl</span><span class="p">.</span><span class="nx">EndGPURenderPass</span><span class="p">(</span><span class="nx">render_pass</span><span class="p">)</span>
+</span><span id="__span-3-68"><a id="__codelineno-3-68" name="__codelineno-3-68" href="#__codelineno-3-68"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-3-69"><a id="__codelineno-3-69" name="__codelineno-3-69" href="#__codelineno-3-69"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-3-70"><a id="__codelineno-3-70" name="__codelineno-3-70" href="#__codelineno-3-70"></a><span class="w">    </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sdl</span><span class="p">.</span><span class="nx">SubmitGPUCommandBuffer</span><span class="p">(</span><span class="nx">command_buffer</span><span class="p">)</span>
+</span><span id="__span-3-71"><a id="__codelineno-3-71" name="__codelineno-3-71" href="#__codelineno-3-71"></a><span class="w">    </span><span class="nx">assert</span><span class="p">(</span><span class="nx">ok</span><span class="p">)</span>
+</span><span id="__span-3-72"><a id="__codelineno-3-72" name="__codelineno-3-72" href="#__codelineno-3-72"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">.</span><span class="nx">CONTINUE</span>
+</span><span id="__span-3-73"><a id="__codelineno-3-73" name="__codelineno-3-73" href="#__codelineno-3-73"></a><span class="p">}</span>
+</span><span id="__span-3-74"><a id="__codelineno-3-74" name="__codelineno-3-74" href="#__codelineno-3-74"></a>
+</span><span id="__span-3-75"><a id="__codelineno-3-75" name="__codelineno-3-75" href="#__codelineno-3-75"></a><span class="err">@</span><span class="p">(</span><span class="nx">export</span><span class="p">)</span>
+</span><span id="__span-3-76"><a id="__codelineno-3-76" name="__codelineno-3-76" href="#__codelineno-3-76"></a><span class="nx">app_event</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="nx">proc</span><span class="w"> </span><span class="s">"c"</span><span class="w"> </span><span class="p">(</span><span class="nx">appstate</span><span class="p">:</span><span class="w"> </span><span class="nx">rawptr</span><span class="p">,</span><span class="w"> </span><span class="nx">event</span><span class="p">:</span><span class="w"> </span><span class="o">^</span><span class="nx">sdl</span><span class="p">.</span><span class="nx">Event</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nx">sdl</span><span class="p">.</span><span class="nx">AppResult</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-77"><a id="__codelineno-3-77" name="__codelineno-3-77" href="#__codelineno-3-77"></a><span class="w">    </span><span class="nx">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">global_context</span>
+</span><span id="__span-3-78"><a id="__codelineno-3-78" name="__codelineno-3-78" href="#__codelineno-3-78"></a><span class="w">    </span><span class="err">#</span><span class="nx">partial</span><span class="w"> </span><span class="k">switch</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="kd">type</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-79"><a id="__codelineno-3-79" name="__codelineno-3-79" href="#__codelineno-3-79"></a><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="nx">QUIT</span><span class="p">:</span>
+</span><span id="__span-3-80"><a id="__codelineno-3-80" name="__codelineno-3-80" href="#__codelineno-3-80"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">.</span><span class="nx">SUCCESS</span>
+</span><span id="__span-3-81"><a id="__codelineno-3-81" name="__codelineno-3-81" href="#__codelineno-3-81"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-3-82"><a id="__codelineno-3-82" name="__codelineno-3-82" href="#__codelineno-3-82"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">.</span><span class="nx">CONTINUE</span>
+</span><span id="__span-3-83"><a id="__codelineno-3-83" name="__codelineno-3-83" href="#__codelineno-3-83"></a><span class="p">}</span>
+</span><span id="__span-3-84"><a id="__codelineno-3-84" name="__codelineno-3-84" href="#__codelineno-3-84"></a>
+</span><span id="__span-3-85"><a id="__codelineno-3-85" name="__codelineno-3-85" href="#__codelineno-3-85"></a><span class="err">@</span><span class="p">(</span><span class="nx">export</span><span class="p">)</span>
+</span><span id="__span-3-86"><a id="__codelineno-3-86" name="__codelineno-3-86" href="#__codelineno-3-86"></a><span class="nx">app_quit</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="nx">proc</span><span class="w"> </span><span class="s">"c"</span><span class="w"> </span><span class="p">(</span><span class="nx">appstate</span><span class="p">:</span><span class="w"> </span><span class="nx">rawptr</span><span class="p">,</span><span class="w"> </span><span class="nx">result</span><span class="p">:</span><span class="w"> </span><span class="nx">sdl</span><span class="p">.</span><span class="nx">AppResult</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-87"><a id="__codelineno-3-87" name="__codelineno-3-87" href="#__codelineno-3-87"></a><span class="w">    </span><span class="nx">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">global_context</span>
+</span><span id="__span-3-88"><a id="__codelineno-3-88" name="__codelineno-3-88" href="#__codelineno-3-88"></a><span class="w">    </span><span class="nx">sdl</span><span class="p">.</span><span class="nx">ReleaseWindowFromGPUDevice</span><span class="p">(</span><span class="nx">gpu_device</span><span class="p">,</span><span class="w"> </span><span class="nx">window</span><span class="p">)</span>
+</span><span id="__span-3-89"><a id="__codelineno-3-89" name="__codelineno-3-89" href="#__codelineno-3-89"></a><span class="w">    </span><span class="nx">sdl</span><span class="p">.</span><span class="nx">DestroyGPUDevice</span><span class="p">(</span><span class="nx">gpu_device</span><span class="p">)</span>
+</span><span id="__span-3-90"><a id="__codelineno-3-90" name="__codelineno-3-90" href="#__codelineno-3-90"></a><span class="w">    </span><span class="nx">sdl</span><span class="p">.</span><span class="nx">DestroyWindow</span><span class="p">(</span><span class="nx">window</span><span class="p">)</span>
+</span><span id="__span-3-91"><a id="__codelineno-3-91" name="__codelineno-3-91" href="#__codelineno-3-91"></a><span class="w">    </span><span class="nx">sdl</span><span class="p">.</span><span class="nx">Quit</span><span class="p">()</span>
+</span><span id="__span-3-92"><a id="__codelineno-3-92" name="__codelineno-3-92" href="#__codelineno-3-92"></a><span class="p">}</span>
 </span></code></pre></div>
+<p>Congratulations! You have now rendered a dark blue background!</p>
+<p><img alt="Darkblue Background" src="../assets/clearing_the_screen.png" /></p>
 
 
 
