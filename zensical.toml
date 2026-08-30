@@ -12,6 +12,7 @@ site_name = "Handmade Gpuer"
 
 nav = [
   { "Getting Started" = "getting_started.md" },
+  {"Clearing the Screen" = "clearing_the_screen.md"}
 ]
 
 # extra_css = ["stylesheets/extra.css"]
@@ -56,9 +57,9 @@ features = [
 # [project.theme.icon]
 # logo = "lucide/smile"
 
-# [project.theme.font]
-# text = "Inter"
-# code = "Jetbrains Mono"
+[project.theme.font]
+text = "Inter"
+code = "Jetbrains Mono"
 
 [[project.theme.palette]]
 media = "(prefers-color-scheme)"
@@ -107,7 +108,7 @@ pymdownx.keys = {}
 pymdownx.magiclink = {}
 pymdownx.mark = {}
 pymdownx.smartsymbols = {}
-# pymdownx.snippets.base_path = "includes"
+pymdownx.snippets.base_path = "examples"
 pymdownx.superfences.custom_fences = [
   { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" },
 ]
