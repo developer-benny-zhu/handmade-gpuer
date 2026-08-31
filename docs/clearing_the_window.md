@@ -1,5 +1,7 @@
 # Clearing the Window
 
+Clearing the window... hmmm what even exactly is that? Well before then let us clear up some terminology.
+
 ## What is window?
 
 Before we can draw anything, we need somewhere to draw it.
@@ -15,6 +17,27 @@ The window is not the same thing as the screen.
 The screen is the physical display itself. A window is a region of that
 display belonging to an application.
 
+![Screen vs. Window](assets/screen_vs_window.svg)
+
+Additionally on the window the origin (0, 0) is on the top left. With x increasing from left to right and y increasing from top to bottom.
+
+![Screen Coordinates](assets/screen_coordinates.svg)
+
+## What is "Rendering?"
+
+Rendering is the process of turning the description of a scene and turns them into pixels. To visualize this, lets say that our scene is composed of three points:
+
+![Three Points](assets/three_points.svg)
+
+The process of rendering takes those points (the description of the scene) into pixels, which might look like this:
+
+![Rendered Triangle](assets/rendered_triangle.svg)
+
+Simarily lets take the description of a 1280x720 pixel window and turn it all into red pixels:
+
+![Cleared Window](assets/cleared_window.svg)
+
+So clearing the screen is considered "rendering."
 
 ## The main loop
 First things first, let us open a window, if you've worked with Raylib or SDL before, you may have constructed the main loop yourself such as:
@@ -262,7 +285,7 @@ Before we can tell the GPU to clear the window, we need to understand
 some of the machinery involved in getting commands from our program to the
 GPU.
 
-### GPU Device
+### What is a GPU Device?
 
 The GPU device is the software representation of the actual GPU(s) on your computer, SDL provides this interface so you can send the GPU commands to do stuff like clearing the screen or drawing textures.
 
@@ -281,9 +304,9 @@ flowchart TD
 ```
 </div>
 
-### GPU Driver
+### What is a GPU Driver?
 
-Seeing the diagram above, you might be asking: what the heck is a GPU driver? Basically, OpenGL, Vulkan, DirectX11 are all GPU APIs they are just specifications defining function names, what those functions do and what those functions return. Meanwhile, GPU drivers are the implementation of those APIs usually done by the GPU manufacturers themselves, such as AMD.
+Seeing the diagram above, you might be asking: what the heck is a GPU driver? Basically, OpenGL, Vulkan, DirectX11 are all GPU APIs they are just specifications defining various types, function names, what those functions do and what those functions return. Meanwhile, GPU drivers are the implementation of those APIs usually done by the GPU manufacturers themselves, such as AMD.
 
 <div align="center">
 
@@ -300,12 +323,12 @@ flowchart TD
 
 </div>
 
-### Swapchain
+### What is a Swapchain?
 
 The idea of a swapchain is that you have a image that you render to and an image that you display then after a frame is finished those two images swap roles. Below is a visual demonstration of what a swapchain is.
 
 <figure>
-  <img src="assets/swapchain.gif" alt="Swapchain Animation">
+  <img src="https://github.com/TechnicJelle/GPUForBeginners/blob/main/docs/chapter02/images/01-swapchain.gif?raw=true" alt="Swapchain Animation">
   <figcaption>I stole this straight from https://gpuforbeginners.com/ go check out their tutorial it is pretty cool also.</figcaption>
 </figure>
 
@@ -313,7 +336,7 @@ The reason we do this is because if we don't the user will see screen tearing be
 
 ![Screentearing demonstration](https://s2.qwant.com/thumbr/474x304/f/c/96d303e53317782ed6624625dc0ea325ce83896cc5bac450d455bb21284bb8/OIP.nilRZEoHJM1qI1y5GStoBwHaEw.jpg?u=https%3A%2F%2Ftse.mm.bing.net%2Fth%2Fid%2FOIP.nilRZEoHJM1qI1y5GStoBwHaEw%3Fpid%3DApi&q=0&b=1&p=0&a=0)
 
-### Command Buffer
+### What is a Command Buffer?
 
 A command buffer is a list of instructions that gets sent to the GPU.
 
@@ -331,10 +354,10 @@ flowchart TD
 ```
 
 </div>
+??? note "Why does a command buffer exist?"
+    The reason we do this is because we don't want the CPU to be constantly waiting around for the GPU:
 
-The reason we do this is because we don't want the CPU to be constantly waiting around for the GPU:
-
-<div style="
+    <div style="
     max-width: 650px;
     margin: 2em auto;
     padding: 1.5em 2em;
@@ -342,43 +365,42 @@ The reason we do this is because we don't want the CPU to be constantly waiting 
     background: var(--md-code-bg-color);
     font-family: monospace;
     line-height: 1.8;
-">
-<div style="text-align: center; font-size: 1.2em; font-weight: bold; margin-bottom: 1em;">
-The Story of the Command Buffer
-</div>
-<div><b>CPU:</b> Do this bro.</div>
-<div><b>GPU:</b> I gotchu bro.</div>
-<div style="opacity: 0.55; padding: 0.5em 0;">
-CPU is waiting...
-</div>
-<div><b>GPU:</b> Bro, im done.</div>
-<div><b>CPU:</b> Bro, do this now.</div>
-<div><b>GPU:</b> Ok bro.</div>
-<div style="opacity: 0.55; padding: 0.5em 0;">
-CPU is waiting...
-</div>
-<div><b>CPU:</b> You done bro?</div>
-<div style="opacity: 0.55; padding: 0.5em 0;">
-GPU is still working...
-</div>
-<div><b>CPU:</b> Bro, why do you gotta be so slow?</div>
-<div><b>GPU:</b> BRO, WHY CAN'T YOU SEND ME THE INSTRUCTIONS ALL AT ONCE SO I DON'T HAVE TO KEEP GOING BACK TO YOU?</div>
-<div><b>CPU:</b> Bro... the reason is because my programmer is stupid! Hes programming me to send you the instructions one by one!</div>
-<div><b>Programmer:</b> Bro.... I heard that... you know what you right, ima invent something called the command buffer.</div>
+    ">
+        <div style="text-align: center; font-size: 1.2em; font-weight: bold; margin-bottom: 1em;">
+        The Story of the Command Buffer
+        </div>
+        <div><b>CPU:</b> Do this bro.</div>
+        <div><b>GPU:</b> I gotchu bro.</div>
+        <div style="opacity: 0.55; padding: 0.5em 0;">
+        CPU is waiting...
+        </div>
+        <div><b>GPU:</b> Bro, im done.</div>
+        <div><b>CPU:</b> Bro, do this now.</div>
+        <div><b>GPU:</b> Ok bro.</div>
+        <div style="opacity: 0.55; padding: 0.5em 0;">
+        CPU is waiting...
+        </div>
+        <div><b>CPU:</b> You done bro?</div>
+        <div style="opacity: 0.55; padding: 0.5em 0;">
+        GPU is still working...
+        </div>
+        <div><b>CPU:</b> Bro, why do you gotta be so slow?</div>
+        <div><b>GPU:</b> BRO, WHY CAN'T YOU SEND ME THE INSTRUCTIONS ALL AT ONCE SO I DON'T HAVE TO KEEP GOING BACK TO YOU?</div>
+        <div><b>CPU:</b> Bro... the reason is because my programmer is stupid! Hes programming me to send you the instructions one by one!</div>
+        <div><b>Programmer:</b> Bro.... I heard that... you know what you right, ima invent something called the command buffer.</div>
+    </div>
 
-</div>
-
-### Color Target (Aliases: Color Attachment, Render Target, RTV)
+### What is a Color Target (Aliases: Color Attachment, Render Target, RTV)?
 
 A color target is the image that the GPU is going to write the colors of the rendered pixels to. Suppose you are trying to render this:
 
-![Picture of a rainbow triangle](https://s1.qwant.com/thumbr/323x305/1/7/7fe62df2751ce705d357ea2c29265de20a9af224ac79058d916b5ac42830d0/OIP.EikvsmQb514mQt6-DxZ3gwAAAA.jpg?u=https%3A%2F%2Ftse.mm.bing.net%2Fth%2Fid%2FOIP.EikvsmQb514mQt6-DxZ3gwAAAA%3Fpid%3DApi&q=0&b=1&p=0&a=0)
+![Rainbow Triangle](assets/rainbow_triangle.png)
 
 The GPU needs somewhere to put those pixels.
 
 In a typical app, the color target will be the swapchain image.
 
-### Render Pass
+### What is a Render Pass?
 
 A render pass is a section where you tell the GPU the color targets you are going to render to. You can think of it like a container.
 <div style="
