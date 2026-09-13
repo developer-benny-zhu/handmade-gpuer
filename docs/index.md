@@ -15,10 +15,11 @@ Let me be clear on thing: I am not one of those people who take pleasure in expl
 
 ## Prerequisites
 
-To get started you first have to have three things:
+To get started you first have to have four things:
 
 1. The Odin compiler
 2. Intermediate knowledge in the Odin programming language
-3. SDL's shader cross.
+3. Syntax knowledge of C-like languages
+4. SDL's shader cross.
 
 Of course, you can use any language of your choice whether it be C++ or Zig because we are using SDL3, which is availible on many languages via bindings.

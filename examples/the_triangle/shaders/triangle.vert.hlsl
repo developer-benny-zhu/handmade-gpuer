@@ -1,7 +1,7 @@
 struct VSOutput
 {
     float4 position : SV_Position;
-    float4 color    : TEXCOORD0;
+    float4 color    : COLOR;
 };
 
 VSOutput main(uint vertexID : SV_VertexID)
@@ -19,7 +19,7 @@ VSOutput main(uint vertexID : SV_VertexID)
     {
         float4(1.0, 0.0, 0.0, 1.0),
         float4(0.0, 1.0, 0.0, 1.0),
-        float4(0.0, 0.0, 1.0, 1.0)
+        float4(1.0, 0.0, 0.0, 1.0)
     };
 
     output.position = float4(positions[vertexID], 0.0, 1.0);
