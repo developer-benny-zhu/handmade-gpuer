@@ -1,16 +1,81 @@
 # The Triangle
 
-Now we got our window up and running, its finally time to render a triangle! Before then you must understand a few concepts.
+Now we got our window up and running, its finally time to render a triangle! However, before then you must understand the graphics pipeline.
 
-## Vertex
+## The Graphics Pipeline
 
-A vertex is simply a point. In the triangle below, it has three vertices.
+First, what even is a pipeline or rather what does a pipeline even do? Well, a pipeline takes a input and through a series of transformations creates a output.
 
-![Triangle With Vertices](assets/triangle_with_vertices.svg)
+```mermaid
+flowchart TD
+
+Input["Input"]
+TransformationA["Transformation A"]
+TransformationB["Transformation B"]
+Ellipsis["..."]
+Output["Output"]
+
+Input--> TransformationA
+TransformationA-->TransformationB
+TransformationB-->Ellipsis
+Ellipsis-->Output
+```
+
+Transformation A takes in input and then spits out something to send to transformation B. Transformation B takes in the output from Transformation A and spits out something to send to transformation C, and so on. In the case of the graphics pipeline, it takes in vertices then spits out pixels:
+
+```mermaid
+flowchart TD
+
+Vertices["Vertices"]
+TransformationA["Transformation A"]
+TransformationB["Transformation B"]
+Ellipsis["..."]
+Pixels["Pixels"]
+
+Vertices-->TransformationA
+TransformationA-->TransformationB
+TransformationB-->Ellipsis
+Ellipsis-->Pixels
+```
+
+Now the terms "transformation a" and "transformation b" seem a little abstract, lets actually define what these transformations are:
+
+```mermaid
+flowchart TD
+
+Vertices["Vertices"]
+PrimitiveAssembler["Primitive Assembler"]
+Rasterizer["Rasterizer"]
+FragmentShader["Fragment Shader"]
+Pixels["Pixels"]
+Vertices-->PrimitiveAssembler
+PrimitiveAssembler-->Rasterizer
+Rasterizer-->FragmentShader
+FragmentShader-->Pixels
+```
+
+This may seem like a bunch of random jargon, but lets break this down.
+
+### What Exactly Is A Vertex?
+
+In graphics programming, a vertex is simply data, in most scenarios it may contain position:
+
+```go
+Vertex :: struct {
+    position: [3]f32,
+}
+```
+Visually if you place three vertices randomly on a window you might see something like:
+
+![Three Points](assets/three_points.svg)
+
+### What Exactly Is A Primitive Assembler
+
+A primitive assembler takes the three points and connects those three points to create a triangle.
 
 ## Vertex Shader
 
-A vertex shader is a program that runs on the GPU for ever vertex you give it. From that phrase alone, the concept of a vertex shader may seem a little abstract, so lets imagine a triangle ABC at the centered at the origin of the window:
+A vertex shader is a program that runs on the GPU for every vertex you give it. From that phrase alone, the concept of a vertex shader may seem a little abstract, so lets imagine a triangle ABC centered at the origin of the window:
 
 ![Triangle With ABC At Origin](assets/triangle_abc_at_origin.svg)
 
@@ -18,19 +83,19 @@ Mentioned again, the vertex shader runs every for each of these vertices.
 
 ```mermaid
 flowchart TD
-        A["Vertex A"]
-        B["Vertex B"]
-        C["Vertex C"]
+        VertexA["Vertex A"]
+        VertexB["Vertex B"]
+        VertexC["Vertex C"]
         Shader["Vertex Shader"]
-        NPFVA["New Position For Vertex A"]
-        NPFVB["New Position For Vertex B"]
-        NPFVC["New Position For Vertex C"]
-        A-->Shader
-        B-->Shader
-        C-->Shader
-        Shader-->NPFVA
-        Shader-->NPFVB
-        Shader-->NPFVC
+        NewPositionForVertexA["New Position For Vertex A"]
+        NewPositionForVertexB["New Position For Vertex B"]
+        NewPositionForVertexC["New Position For Vertex C"]
+        VertexA-->Shader
+        VertexB-->Shader
+        VertexC-->Shader
+        Shader-->NewPositionForVertexA
+        Shader-->NewPositionForVertexB
+        Shader-->NewPositionForVertexC
 ```
 
 Now after running through the vertex shader, we see that the triangle is now centered on the window.
